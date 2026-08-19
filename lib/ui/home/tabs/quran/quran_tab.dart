@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/ui/home/tabs/quran/details1/sura_details_screen1.dart';
+import 'package:islami_app/ui/home/tabs/quran/details2/sura_details_screen2.dart';
+import 'package:islami_app/ui/home/tabs/quran/quran_resources.dart';
 import 'package:islami_app/ui/home/tabs/quran/sura_item.dart';
 import 'package:islami_app/utils/app_assets.dart';
 import 'package:islami_app/utils/app_colors.dart';
 import 'package:islami_app/utils/app_styles.dart';
 
-class QuranTab extends StatelessWidget {
-  const QuranTab({super.key});
+class QuranTab extends StatefulWidget {
+  QuranTab({super.key});
 
+  @override
+  State<QuranTab> createState() => _QuranTabState();
+}
+
+class _QuranTabState extends State<QuranTab> {
+  List<int> filterList = List.generate(114, (index) => index);
+
+  // void addFilterList() {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -18,11 +28,17 @@ class QuranTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextField(
+            controller: TextEditingController(),
+            onChanged: (newText) {
+              searchByNewText(newText);
+            },
+            style: AppStyles.bold16White,
             cursorColor: AppColor.primColor,
             decoration: InputDecoration(
               prefixIcon: Image.asset(AppAssets.iconSearch),
               hintText: "Sura Name",
               hintStyle: Theme.of(context).textTheme.headlineLarge,
+
               // hintStyle: AppStyles.bold16White,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
@@ -76,16 +92,17 @@ class QuranTab extends StatelessWidget {
           SizedBox(height: height * 0.01),
           Expanded(
             child: ListView.separated(
-              itemCount: 114,
+              itemCount: filterList.length,
               padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    Navigator.of(
-                      context,
-                    ).pushNamed(SuraDetailsScreen1.routeName, arguments: index);
+                    Navigator.of(context).pushNamed(
+                      SuraDetailsScreen1.routeName,
+                      arguments: filterList[index],
+                    );
                   },
-                  child: SuraItem(index: index),
+                  child: SuraItem(index: filterList[index]),
                 );
               },
               separatorBuilder: (context, index) {
@@ -101,5 +118,23 @@ class QuranTab extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void searchByNewText(String newText) {
+    List<int> filterSearchList = [];
+    for (int i = 0; i < QuranResources.englishQuranList.length; i++) {
+      if (QuranResources.englishQuranList[i].toLowerCase().contains(
+        newText.toLowerCase(),
+      )) {
+        filterSearchList.add(i);
+      }
+      if (QuranResources.arabicQuranList[i].toLowerCase().contains(
+        newText.toLowerCase(),
+      )) {
+        filterSearchList.add(i);
+      }
+    }
+    filterList = filterSearchList;
+    setState(() {});
   }
 }
