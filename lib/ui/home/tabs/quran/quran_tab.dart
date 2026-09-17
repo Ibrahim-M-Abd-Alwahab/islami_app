@@ -19,7 +19,6 @@ class QuranTab extends StatefulWidget {
 class _QuranTabState extends State<QuranTab> {
   List<int> filterList = List.generate(114, (index) => index);
 
-  // void addFilterList() {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -63,8 +62,10 @@ class _QuranTabState extends State<QuranTab> {
               padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
                 return InkWell(
-                  // todo: save last sura index in shared prefs
                   onTap: () {
+                    // todo: save last sura index in shared prefs
+                    saveNewSuraList(filterList[index]);
+                    // todo: navigate to sura details screen
                     Navigator.of(context).pushNamed(
                       SuraDetailsScreen1.routeName,
                       arguments: filterList[index],
