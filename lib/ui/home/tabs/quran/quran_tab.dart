@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/ui/home/tabs/quran/details1/sura_details_screen1.dart';
-import 'package:islami_app/ui/home/tabs/quran/details2/sura_details_screen2.dart';
-import 'package:islami_app/ui/home/tabs/quran/quran_resources.dart';
 import 'package:islami_app/ui/home/tabs/quran/most_recent_widget.dart';
 import 'package:islami_app/ui/home/tabs/quran/sura_item.dart';
 import 'package:islami_app/utils/app_assets.dart';
@@ -9,7 +7,7 @@ import 'package:islami_app/utils/app_colors.dart';
 import 'package:islami_app/utils/app_styles.dart';
 import 'package:islami_app/utils/shared_prefs.dart';
 
-class QuranTab extends StatelessWidget {
+class QuranTab extends StatefulWidget {
   const QuranTab({super.key});
 
   @override
@@ -57,11 +55,10 @@ class _QuranTabState extends State<QuranTab> {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-<<<<<<< HEAD
                     Navigator.of(
                       context,
                     ).pushNamed(SuraDetailsScreen1.routeName, arguments: index);
-=======
+
                     // todo: save last sura index in shared prefs
                     saveNewSuraList(filterList[index]);
                     // todo: navigate to sura details screen
@@ -69,7 +66,6 @@ class _QuranTabState extends State<QuranTab> {
                       SuraDetailsScreen1.routeName,
                       arguments: filterList[index],
                     );
->>>>>>> eddad09 (feat: save selected sura to recent list)
                   },
                   child: SuraItem(index: index),
                 );
