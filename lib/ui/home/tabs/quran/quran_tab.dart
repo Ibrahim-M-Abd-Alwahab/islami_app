@@ -13,6 +13,13 @@ class QuranTab extends StatelessWidget {
   const QuranTab({super.key});
 
   @override
+  State<QuranTab> createState() => _QuranTabState();
+}
+
+class _QuranTabState extends State<QuranTab> {
+  List<int> filterList = List.generate(114, (index) => index);
+
+  @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
@@ -49,11 +56,20 @@ class QuranTab extends StatelessWidget {
               padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
                 return InkWell(
-                  // todo: save last sura index in shared prefs
                   onTap: () {
+<<<<<<< HEAD
                     Navigator.of(
                       context,
                     ).pushNamed(SuraDetailsScreen1.routeName, arguments: index);
+=======
+                    // todo: save last sura index in shared prefs
+                    saveNewSuraList(filterList[index]);
+                    // todo: navigate to sura details screen
+                    Navigator.of(context).pushNamed(
+                      SuraDetailsScreen1.routeName,
+                      arguments: filterList[index],
+                    );
+>>>>>>> eddad09 (feat: save selected sura to recent list)
                   },
                   child: SuraItem(index: index),
                 );
