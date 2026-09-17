@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/ui/home/tabs/quran/details1/sura_details_screen1.dart';
+import 'package:islami_app/ui/home/tabs/quran/details2/sura_details_screen2.dart';
+import 'package:islami_app/ui/home/tabs/quran/quran_resources.dart';
+import 'package:islami_app/ui/home/tabs/quran/most_recent_widget.dart';
 import 'package:islami_app/ui/home/tabs/quran/sura_item.dart';
 import 'package:islami_app/utils/app_assets.dart';
 import 'package:islami_app/utils/app_colors.dart';
 import 'package:islami_app/utils/app_styles.dart';
+import 'package:islami_app/utils/shared_prefs.dart';
 
 class QuranTab extends StatelessWidget {
   const QuranTab({super.key});
+
+  @override
+  State<QuranTab> createState() => _QuranTabState();
+}
+
+class _QuranTabState extends State<QuranTab> {
+  List<int> filterList = List.generate(114, (index) => index);
 
   @override
   Widget build(BuildContext context) {
@@ -35,42 +46,7 @@ class QuranTab extends StatelessWidget {
             ),
           ),
           SizedBox(height: height * 0.02),
-          Text("Most Recently", style: AppStyles.bold16White),
-          SizedBox(height: height * 0.01),
-          SizedBox(
-            height: height * 0.18,
-            width: double.infinity,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: AppColor.primColor,
-                  ),
-                  child: Row(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Al-Anbiya", style: AppStyles.bold24Black),
-                          Text("الأنبياء", style: AppStyles.bold24Black),
-                          Text("112 Verses", style: AppStyles.bold14Black),
-                        ],
-                      ),
-                      Image.asset(AppAssets.mostRecently),
-                    ],
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return SizedBox(width: width * 0.02);
-              },
-              itemCount: 10,
-            ),
-          ),
+          MostRecentWidget(),
           SizedBox(height: height * 0.01),
           Text("Sura's List", style: AppStyles.bold16White),
           SizedBox(height: height * 0.01),
@@ -81,9 +57,19 @@ class QuranTab extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
+<<<<<<< HEAD
                     Navigator.of(
                       context,
                     ).pushNamed(SuraDetailsScreen1.routeName, arguments: index);
+=======
+                    // todo: save last sura index in shared prefs
+                    saveNewSuraList(filterList[index]);
+                    // todo: navigate to sura details screen
+                    Navigator.of(context).pushNamed(
+                      SuraDetailsScreen1.routeName,
+                      arguments: filterList[index],
+                    );
+>>>>>>> eddad09 (feat: save selected sura to recent list)
                   },
                   child: SuraItem(index: index),
                 );
