@@ -29,20 +29,9 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
 
   @override
   Widget build(BuildContext context) {
-
-    double height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    int index = ModalRoute
-        .of(context)
-        ?.settings
-        .arguments as int;
-
     double height = MediaQuery.of(context).size.height;
     int index = ModalRoute.of(context)?.settings.arguments as int;
     mostRecentProvider = Provider.of<MostRecentProvider>(context);
-
 
     if (verses.isEmpty) {
       loadSuraFile(index);
@@ -77,20 +66,20 @@ class _SuraDetailsScreen1State extends State<SuraDetailsScreen1> {
               verses.isEmpty
                   ? CircularProgressIndicator(color: AppColor.primColor)
                   : Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (context, index) {
-                    return SizedBox(height: height * 0.02);
-                  },
-                  shrinkWrap: true,
-                  itemCount: verses.length,
-                  itemBuilder: (context, index) {
-                    return SuraContentItem1(
-                      suraContent: verses[index],
-                      index: index,
-                    );
-                  },
-                ),
-              ),
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) {
+                        return SizedBox(height: height * 0.02);
+                      },
+                      shrinkWrap: true,
+                      itemCount: verses.length,
+                      itemBuilder: (context, index) {
+                        return SuraContentItem1(
+                          suraContent: verses[index],
+                          index: index,
+                        );
+                      },
+                    ),
+                  ),
               SizedBox(height: height * 0.2),
             ],
           ),
