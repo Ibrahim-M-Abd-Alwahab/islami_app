@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami_app/model/hadeth.dart';
+import 'package:islami_app/utils/app_assets.dart';
 import 'package:islami_app/utils/app_colors.dart';
+import 'package:islami_app/utils/app_styles.dart';
 
 class HadethItem extends StatefulWidget {
   int index;
@@ -16,30 +18,59 @@ class _HadethItemState extends State<HadethItem> {
   Hadeth? hadeth;
   @override
   void initState() {
+
+    super.initState();
     // TODO: implement initState
     loadHadethFile(widget.index);
   }
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: width * 0.01,
+        vertical: height * 0.01,
+      ),
+
       decoration: BoxDecoration(
+        image: DecorationImage(image: AssetImage(AppAssets.hadethDetailsBg)),
         borderRadius: BorderRadius.circular(20),
         color: AppColor.primColor,
       ),
       child:
-          hadeth == Null
+          hadeth == null
               ? Center(
                 child: CircularProgressIndicator(color: AppColor.blackColor),
               )
               : Column(
                 children: [
-                  Text(hadeth?.title ?? ""),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(AppAssets.hadethLeftCorner),
+                      Expanded(
+                        child: Text(
+                          hadeth?.title ?? "",
+                          textAlign: TextAlign.center,
+                          style: AppStyles.bold24Black,
+                        ),
+                      ),
+                      Image.asset(AppAssets.hadethRightCorner),
+                    ],
+                  ),
                   Expanded(
                     child: SingleChildScrollView(
-                      child: Text(hadeth?.content ?? ""),
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                      child: Text(
+                        hadeth?.content ?? "",
+                        textAlign: TextAlign.center,
+                        style: AppStyles.bold16Black,
+                      ),
                     ),
                   ),
+                  Image.asset(AppAssets.hadethMosque),
                 ],
               ),
     );
