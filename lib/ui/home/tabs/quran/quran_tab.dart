@@ -58,14 +58,13 @@ class _QuranTabState extends State<QuranTab> {
                     Navigator.of(
                       context,
                     ).pushNamed(SuraDetailsScreen1.routeName, arguments: index);
-
                     // todo: save last sura index in shared prefs
                     saveNewSuraList(filterList[index]);
                     // todo: navigate to sura details screen
-                    Navigator.of(context).pushNamed(
-                      SuraDetailsScreen1.routeName,
-                      arguments: filterList[index],
-                    );
+                    // Navigator.of(context).pushNamed(
+                    //   SuraDetailsScreen1.routeName,
+                    //   arguments: filterList[index],
+                    // );
                   },
                   child: SuraItem(index: index),
                 );

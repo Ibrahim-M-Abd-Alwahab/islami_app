@@ -18,7 +18,6 @@ class _HadethItemState extends State<HadethItem> {
   Hadeth? hadeth;
   @override
   void initState() {
-
     super.initState();
     // TODO: implement initState
     loadHadethFile(widget.index);
