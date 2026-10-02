@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/providers/most_recent_provider.dart';
+import 'package:islami_app/ui/home/tabs/quran/details1/sura_details_screen1.dart';
 import 'package:islami_app/ui/home/tabs/quran/quran_resources.dart';
 import 'package:islami_app/utils/app_assets.dart';
 import 'package:islami_app/utils/app_colors.dart';
@@ -50,31 +51,40 @@ class _MostRecentWidgetState extends State<MostRecentWidget> {
                     borderRadius: BorderRadius.circular(20),
                     color: AppColor.primColor,
                   ),
-                  child: Row(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            QuranResources.englishQuranList[mostRecentProvider
-                                .mostRecentList[index]],
-                            style: AppStyles.bold24Black,
-                          ),
-                          Text(
-                            QuranResources.arabicQuranList[mostRecentProvider
-                                .mostRecentList[index]],
-                            style: AppStyles.bold24Black,
-                          ),
-                          Text(
-                            QuranResources.versesNumberList[mostRecentProvider
-                                .mostRecentList[index]],
-                            style: AppStyles.bold14Black,
-                          ),
-                        ],
-                      ),
-                      Image.asset(AppAssets.mostRecently),
-                    ],
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        SuraDetailsScreen1.routeName,
+                        arguments: mostRecentProvider.mostRecentList[index],
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              QuranResources.englishQuranList[mostRecentProvider
+                                  .mostRecentList[index]],
+                              style: AppStyles.bold24Black,
+                            ),
+                            Text(
+                              QuranResources.arabicQuranList[mostRecentProvider
+                                  .mostRecentList[index]],
+                              style: AppStyles.bold24Black,
+                            ),
+                            Text(
+                              QuranResources.versesNumberList[mostRecentProvider
+                                  .mostRecentList[index]],
+                              style: AppStyles.bold14Black,
+                            ),
+                          ],
+                        ),
+                        Image.asset(AppAssets.mostRecently),
+                      ],
+                    ),
                   ),
                 );
               },
